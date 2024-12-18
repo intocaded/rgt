@@ -1,0 +1,155 @@
+<html><head><base href="https://gartic.com.br/">
+    <title>Revelador GTC</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #8a2be2, #ff69b4);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            margin-top: 2rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #8a2be2;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .tips {
+            background-color: rgba(138, 43, 226, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .tips h2 {
+            color: #8a2be2;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tips ul {
+            margin: 0;
+            padding-left: 1.5rem;
+            color: #444;
+        }
+
+        .tips li {
+            margin: 0.5rem 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 1rem 0;
+            border: 2px solid #8a2be2;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #8a2be2;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #7a1cd1;
+            transform: scale(1.05);
+        }
+
+        #result {
+            margin-top: 2rem;
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #result img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            margin: 0 auto;
+        }
+
+        .error {
+            color: #ff0000;
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Revelador GTC</h1>
+        
+        <div class="tips">
+            <h2>📝 Como usar:</h2>
+            <ul>
+                <li>Para encontrar imagens privadas, acesse a seção "Atividade dos Amigos" no Gartic</li>
+                <li>Procure por fotos postadas por usuários com perfil privado</li>
+                <li>Clique com o botão direito na imagem que deseja revelar</li>
+                <li>Selecione "Copiar endereço da imagem"</li>
+                <li>Cole o link abaixo (deve conter "fotomicro_" no link)</li>
+                <li>Por enquanto só funciona em última foto postada.</li>
+            </ul>
+        </div>
+
+        <input type="text" id="gtcLink" placeholder="Cole o link do Gartic aqui (exemplo: .../fotomicro_1234567890.jpg)">
+        <button onclick="revelarImagem()">Revelar Imagem</button>
+        <p class="error" id="errorMsg">Link inválido! Por favor, insira um link válido do Gartic.</p>
+        <div id="result">
+            <img id="revealedImage" src="" alt="Imagem revelada">
+        </div>
+    </div>
+
+    <script>
+        function revelarImagem() {
+            const input = document.getElementById('gtcLink').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const revealedImage = document.getElementById('revealedImage');
+
+            if (!input.includes('fotomicro_')) {
+                errorMsg.style.display = 'block';
+                revealedImage.style.display = 'none';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+            
+            // Transformar o link de fotomicro para foto
+            const revelado = input.replace('fotomicro_', 'foto_');
+            
+            revealedImage.src = revelado;
+            revealedImage.style.display = 'block';
+
+            // Adicionar animação de fade in
+            revealedImage.style.opacity = 0;
+            revealedImage.style.transition = 'opacity 1s';
+            setTimeout(() => {
+                revealedImage.style.opacity = 1;
+            }, 100);
+        }
+    </script>
+</body></html>
